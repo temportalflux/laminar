@@ -203,6 +203,12 @@ impl<TSocket: DatagramSocket, TConnection: Connection> ConnectionManager<TSocket
     pub fn connections_count(&self) -> usize {
         self.connections.len()
     }
+
+    pub fn mark_connection_for_drop(&mut self, address: &SocketAddr) {
+        if let Some(connection) = self.connections.get_mut(address) {
+            connection.mark_for_drop();
+        }
+    }
 }
 
 #[cfg(test)]

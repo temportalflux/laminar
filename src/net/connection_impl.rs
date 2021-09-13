@@ -54,13 +54,18 @@ impl Connection for VirtualConnection {
         self.is_established()
     }
 
+    fn mark_for_drop(&mut self) {
+        self.marked_for_drop = true;
+    }
+
     /// Determines if the given `Connection` should be dropped due to its state.
     fn should_drop(
         &mut self,
         messenger: &mut impl ConnectionMessenger<Self::ReceiveEvent>,
         time: Instant,
     ) -> bool {
-        let should_drop = self.packets_in_flight() > messenger.config().max_packets_in_flight
+        let should_drop = self.marked_for_drop
+            || self.packets_in_flight() > messenger.config().max_packets_in_flight
             || self.last_heard(time) >= messenger.config().idle_connection_timeout;
         if should_drop {
             messenger.send_event(

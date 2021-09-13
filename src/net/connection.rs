@@ -41,6 +41,8 @@ pub trait Connection: Debug {
     /// Connections are considered established once they have both had both a send and a receive.
     fn is_established(&self) -> bool;
 
+    fn mark_for_drop(&mut self);
+
     /// Determines if the connection should be dropped due to its state.
     fn should_drop(
         &mut self,

@@ -29,6 +29,8 @@ pub struct VirtualConnection {
     /// The address of the remote endpoint
     pub remote_address: SocketAddr,
 
+    pub marked_for_drop: bool,
+
     ever_sent: bool,
     ever_recv: bool,
 
@@ -48,6 +50,7 @@ impl VirtualConnection {
             last_heard: time,
             last_sent: time,
             remote_address: addr,
+            marked_for_drop: false,
             ever_sent: false,
             ever_recv: false,
             ordering_system: OrderingSystem::new(),

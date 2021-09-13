@@ -189,4 +189,8 @@ impl Socket {
             .socket_mut()
             .set_link_conditioner(link_conditioner);
     }
+
+    pub fn kick(&mut self, address: &SocketAddr) {
+        self.handler.mark_connection_for_drop(address);
+    }
 }
