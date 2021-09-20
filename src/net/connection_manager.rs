@@ -204,6 +204,7 @@ impl<TSocket: DatagramSocket, TConnection: Connection> ConnectionManager<TSocket
         self.connections.len()
     }
 
+    /// Marks the connection to be dropped at the next possible moment.
     pub fn mark_connection_for_drop(&mut self, address: &SocketAddr) {
         if let Some(connection) = self.connections.get_mut(address) {
             connection.mark_for_drop();

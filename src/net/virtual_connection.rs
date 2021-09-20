@@ -29,6 +29,7 @@ pub struct VirtualConnection {
     /// The address of the remote endpoint
     pub remote_address: SocketAddr,
 
+    /// Indicates that the connection should be dropped.
     pub marked_for_drop: bool,
 
     ever_sent: bool,

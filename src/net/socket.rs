@@ -190,6 +190,7 @@ impl Socket {
             .set_link_conditioner(link_conditioner);
     }
 
+    /// Marks that the connection with the provided address should be dropped at the next possible moment.
     pub fn kick(&mut self, address: &SocketAddr) {
         self.handler.mark_connection_for_drop(address);
     }
